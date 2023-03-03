@@ -1,5 +1,6 @@
 import { Dialog, Box, TextField, Typography, Button, styled } from "@mui/material";
 import { useState } from "react";
+import { authenticateSignup } from "../../components/service/api";
 const Component = styled(Box)`
   height: 70vh;
   width: 90vh;
@@ -74,8 +75,9 @@ const signUpInitialValues = {
 };
 
 const onInputChange = (e) => {
-  // setSignup({ ...signup, [e.target.name]: e.target.value });
+  setSignup({ ...signup, [e.target.name]: e.target.value });
 };
+
 const LoginDialog = ({ open, setOpen }) => {
   const [account, toggleAccount] = useState(accountInitialValues.login);
   const [signup, setSignup] = useState(signUpInitialValues);
@@ -89,7 +91,9 @@ const LoginDialog = ({ open, setOpen }) => {
     toggleAccount(accountInitialValues.signup);
   };
 
-  const signUpUser = () => {};
+  const signUpUser = async () => {
+    let response = await authenticateSignup(signup);
+  };
   return (
     <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { maxWidth: "unset" } }}>
       <Component>
